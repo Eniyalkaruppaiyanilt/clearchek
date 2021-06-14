@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    const logdetails = sequelize.define('bt_logdetails', {
+    const logdetails = sequelize.define('cc_logdetails', {
         logkey: {
             type: DataTypes.STRING,
             allowNull:false,

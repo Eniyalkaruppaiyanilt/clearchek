@@ -15,5 +15,5 @@ db.sequelize = sequelize;
 
 //models/tables
 db.registration = require('../superadmin/models/registration')(sequelize, Sequelize);
-
+db.logdetails = require('../superadmin/models/logdetails')(sequelize, Sequelize);
 module.exports = db;
