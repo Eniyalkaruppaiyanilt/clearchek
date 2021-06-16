@@ -6,34 +6,26 @@ module.exports = function(sequelize, DataTypes) {
             primaryKey: true
         },
         salutation :{
-            type: DataTypes.INTEGER,
-            allowNull:false
+            type: DataTypes.INTEGER
         },
         firstname: {
-            type: DataTypes.STRING,
-            allowNull:false
+            type: DataTypes.STRING
         },
         lastname: {
-            type: DataTypes.STRING,
-            allowNull:false
+            type: DataTypes.STRING
         },
         emailid :{
-            type: DataTypes.STRING,
-            allowNull:false
+            type: DataTypes.STRING
         },
         gender: {
-            type: DataTypes.INTEGER,
-            allowNull:false
+            type: DataTypes.INTEGER
         }, dob: {
-            type: DataTypes.DATE,
-            allowNull:false
+            type: DataTypes.DATE
         },maritalstatus:{
-            type: DataTypes.INTEGER,
-            allowNull:false
+            type: DataTypes.INTEGER
         },
         dependents :{
-            type: DataTypes.INTEGER,
-            allowNull:false
+            type: DataTypes.INTEGER
         },
         createdby:
         {
