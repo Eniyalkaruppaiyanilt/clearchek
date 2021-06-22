@@ -1,24 +1,40 @@
 module.exports = function(sequelize, DataTypes) {
-    const personaldetails = sequelize.define('cc_personaldetails', {
-        personaldetailkey : {
+    const occupationdetails = sequelize.define('cc_occupationdetails', {
+        occupationkey : {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        firstname: {
-            type: DataTypes.STRING
-        },
-        lastname: {
-            type: DataTypes.STRING
-        },
-        emailid :{
-            type: DataTypes.STRING
-        },
-        gender: {
+        occupationtype: {
             type: DataTypes.INTEGER
-        }, dob: {
+        },
+        occupationstatus: {
+            type: DataTypes.INTEGER
+        },
+        employername :{
+            type: DataTypes.STRING
+        },
+        startdate: {
             type: DataTypes.DATE
-        },maritalstatus:{
+        }, designation: {
+            type: DataTypes.STRING
+        },grossannualsalary:{
+            type: DataTypes.DECIMAL
+        }, country:{
+            type: DataTypes.INTEGER
+        },addressline1:{
+            type: DataTypes.STRING
+        },
+        addressline2:{
+            type: DataTypes.STRING
+        },
+        city:{
+            type: DataTypes.STRING
+        },
+        state:{
+            type: DataTypes.INTEGER
+        },
+        zipcode:{
             type: DataTypes.INTEGER
         },
         createdby:
@@ -37,5 +53,5 @@ module.exports = function(sequelize, DataTypes) {
             field: 'modifiedon',
         }
     });
-    return personaldetails;
+    return occupationdetails;
 }

@@ -1,5 +1,5 @@
 const db = require('../../config/dbconnection');
-const registration = db.registration;
+const personaldetails=db.personaldetails;
 express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -22,21 +22,12 @@ router.use(fileUpload({
 app.use(express.static(path.join(__dirname, 'public')));
 router.get('/:id', verifytoken, function (req, res, next) {
     const id = req.params.id;
-    registration.findAll({
+    personaldetails.findAll({
         where: {
-            registrationkey: id
+            personaldetailkey: id
         },
-        attributes: ['firstname', 'lastname', 'emailid', 'phonenumber','image','role'], //object
+        attributes: ['firstname', 'lastname', 'emailid', 'gender','dob','maritalstatus'], //object
     }).then(data => {
-            const img = data[0].image;
-            if (img) {
-              
-                data[0].image = "http://ec2-3-82-204-221.compute-1.amazonaws.com:4002/images/" + img
-            }
-            else {
-               
-                data[0].image = "http://ec2-3-82-204-221.compute-1.amazonaws.com:4002/images/nopicture.png"
-            }
             res.send(data[0]);
             winston.info('/userprofile/id=' + id + 'data' + data);
     })
@@ -50,7 +41,7 @@ router.get('/:id', verifytoken, function (req, res, next) {
 router.put('/:id', verifytoken, function (req, res, next) {
     const id = req.params.id;
     const reg = req.body;
-    registration.findByPk(id)
+    personaldetails.findByPk(id)
         .then(data1 => {
             if (!data1) {
                 var response = CF.getStandardResponse(401, "This userid not found");
@@ -58,24 +49,8 @@ router.put('/:id', verifytoken, function (req, res, next) {
                 next();
             }
             else {
-                if (req.files) {
-                    let dept = req.files;
-                    var image1 = dept.image;
-                    if (!image1) {
-                        reg.image = data1.image;
-                    }
-                    else {
-                        fs.unlink('./public/images/' + data1.image,(err) => {
-                            if (err) {
-                            }
-                        });
-                        image1.mv('./public/images/' + id + image1.name);
-                        reg.image = id + image1.name;
-                    }
-
-                }
-                registration.update(reg, {
-                    where: { registrationkey: id }
+                personaldetails.update(reg, {
+                    where: { personaldetailkey: id }
                 })
                     .then(data => {
                         if (!data) {

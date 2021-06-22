@@ -17,4 +17,7 @@ db.sequelize = sequelize;
 db.registration = require('../superadmin/models/registration')(sequelize, Sequelize);
 db.logdetails = require('../superadmin/models/logdetails')(sequelize, Sequelize);
 db.personaldetails = require('../superadmin/models/personaldetails')(sequelize, Sequelize);
+db.contact = require('../superadmin/models/contact')(sequelize, Sequelize);
+db.occupationdetails = require('../superadmin/models/occupation')(sequelize, Sequelize);
+db.identification = require('../superadmin/models/identification')(sequelize, Sequelize);
 module.exports = db;
