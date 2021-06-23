@@ -19,6 +19,7 @@ var main = require('./superadmin/controller/main');
 const identification = require('./superadmin/controller/identification');
 const contact = require('./superadmin/controller/contact');
 const occupation = require('./superadmin/controller/occupation');
+const travelinformation = require('./superadmin/controller/travelinformation');
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 
@@ -39,6 +40,7 @@ app.use('/decrypt', decrypt);
 app.use('/contact', contact);
 app.use('/occupation', occupation);
 app.use('/identification', identification);
+app.use('/travelinformation', travelinformation);
 app.use(morgan('combined', { stream: winston.stream }));
 app.use(function (req, res, next) {
     next(createError(404));
