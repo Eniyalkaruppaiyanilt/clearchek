@@ -12,7 +12,15 @@ const fileUpload = require('express-fileupload');
 const jwt = require('jsonwebtoken');
 var uuid = require('node-uuid');
 const sequelize = db.sequelize;
-
+const fs = require('fs');
+router.use(fileUpload({
+  createParentPath: true,
+  limits: {
+    fileSize: 2 * 1024 * 1024 * 1024
+  },
+}));
+var path = require('path'); var app = express();
+app.use(express.static(path.join(__dirname, 'public')));
 router.post('/', function (req, res, next) {
   sequelize.query("select  * from cc_identificationdetails where identificationtype='"+req.body.identificationtype+"' and  identificationnumber='"+req.body.identificationnumber+"'",
   { replacements: ['active'], type: sequelize.QueryTypes.SELECT }).then(user => {
@@ -23,6 +31,15 @@ router.post('/', function (req, res, next) {
     else
     {
       const userreg = new identification(req.body)
+      if (req.files) {
+        let dept = req.files;
+        var image1 = dept.frontview;
+        image1.mv('./public/images/frontview/' + image1.name);
+        userreg.frontview = image1.name;
+        var image2 = dept.backview;
+        image1.mv('./public/images/backview/' + image2.name);
+        userreg.backview = image2.name;
+      }
       userreg.save()
       .then(data => {
         winston.info('post some data/identification'+data);
@@ -45,6 +62,43 @@ router.put('/:id', verifytoken, function (req, res, next) {
         var response = CF.getStandardResponse(401, "identification not found");
         return res.status(401).send(response)
       } else {
+        if (req.files) {
+          let dept = req.files;
+          var image1 = dept.frontview;
+          var image2 = dept.backview;
+          var frontview= image1.name;
+          var backview= image2.name;
+          if (!image1) {
+            reg.frontview = data.frontview;
+          }
+          else {
+            var test = data.frontview;
+            fs.unlink("./public/images/frontview/" + test, function (err) {
+              if (err) {
+                console.log("failed to delete local image:" + err);
+              } else {
+                console.log('successfully deleted local image');
+              }
+            });
+            image1.mv('./public/images/frontview/' + frontview);
+            reg.frontview = image1.name;
+          }
+          if (!image2) {
+            reg.backview = data.backview;
+          }
+          else {
+            var test = data.backview;
+            fs.unlink("./public/images/backview/" + test, function (err) {
+              if (err) {
+                console.log("failed to delete local image:" + err);
+              } else {
+                console.log('successfully deleted local image');
+              }
+            });
+            image2.mv('./public/images/backview/' + backview);
+            reg.backview = image2.name;
+          }
+        }
        
         identification.update(reg, {
           where: { identificationkey: id }
@@ -97,8 +151,15 @@ router.get('/', verifytoken, function (req, res, next) {
   sequelize.query("select *,to_char(createdon,'DD/MM/YYYY')AS date from  cc_identificationdetails  ",
     { replacements: ['active'], type: sequelize.QueryTypes.SELECT })
     .then(data => {
-      
+      var totalrows = data.length;
+      for (var i = 0; i < totalrows; i++) {
+        const img1 = data[i].frontview;
+        const img2 = data[i].backview;
+        data[i].frontview = "http://ec2-3-82-204-221.compute-1.amazonaws.com:4003/images/frontview/" + img1
+        data[i].backview = "http://ec2-3-82-204-221.compute-1.amazonaws.com:4003/images/backview/" + img2
+      }
       res.status(200).send({
+       
         response_code: "200", response_message: "success.", data
       });
       winston.info('getidentification')
@@ -117,6 +178,10 @@ router.get('/:id', verifytoken, function (req, res, next) {
         { replacements: ['active'], type: sequelize.QueryTypes.SELECT })
         .then(data => {
           if (!data) {
+            const img = data[0].fronview;
+            data[0].fronview = "http://ec2-3-82-204-221.compute-1.amazonaws.com:4003/images/fronview/" + img
+            const img1 = data[0].backview;
+            data[0].backview = "http://ec2-3-82-204-221.compute-1.amazonaws.com:4003/images/backview/" + img1
             var response = CF.getStandardResponse(401, "This identification not found");
             return res.status(401).send(response)
           }
