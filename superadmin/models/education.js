@@ -1,21 +1,20 @@
 module.exports = function(sequelize, DataTypes) {
-    const identification = sequelize.define('cc_identificationdetails', {
-        identificationkey: {
+    const education = sequelize.define('cc_educations', {
+        educationkey: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        identificationtype:
+        name:
         {
-            type: DataTypes.INTEGER,
-            allowNull:false,
-        },identificationnumber:
-        {
-            type: DataTypes.INTEGER,
-            allowNull:false,
-        },frontview:{
             type: DataTypes.STRING
-        },backview:{
+        },
+        qualification:
+        {
+            type: DataTypes.STRING
+        },
+        percentage:
+        {
             type: DataTypes.STRING
         },
         createdby:DataTypes.INTEGER,
@@ -28,5 +27,5 @@ module.exports = function(sequelize, DataTypes) {
             field: 'modifiedon',
         }
     });
-    return identification;
+    return education;
 }

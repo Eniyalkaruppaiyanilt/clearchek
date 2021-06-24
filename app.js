@@ -20,6 +20,8 @@ const identification = require('./superadmin/controller/identification');
 const contact = require('./superadmin/controller/contact');
 const occupation = require('./superadmin/controller/occupation');
 const travelinformation = require('./superadmin/controller/travelinformation');
+const medicalreport= require('./superadmin/controller/medicalreport');
+const education= require('./superadmin/controller/education');
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 
@@ -41,6 +43,8 @@ app.use('/contact', contact);
 app.use('/occupation', occupation);
 app.use('/identification', identification);
 app.use('/travelinformation', travelinformation);
+app.use('/medicalreport', medicalreport);
+app.use('/education', education);
 app.use(morgan('combined', { stream: winston.stream }));
 app.use(function (req, res, next) {
     next(createError(404));
