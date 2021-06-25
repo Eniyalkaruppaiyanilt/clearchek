@@ -36,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
            type: DataTypes.TIME,
        },
    
-       designation_place :{
+       destination_place :{
    
            type: DataTypes.STRING,
        },

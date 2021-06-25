@@ -14,7 +14,7 @@ var uuid = require('node-uuid');
 const sequelize = db.sequelize;
 
 router.post('/', function (req, res, next) {
-  sequelize.query("select  * from cc_educations where userid='"+req.body.userid+"' and  name='"+req.body.name+"' and qualification='"+req.body.qualification+"' ",
+  sequelize.query("select  * from cc_educations where userid="+req.body.userid+" and  name='"+req.body.name+"' and qualification='"+req.body.qualification+"' ",
   { replacements: ['active'], type: sequelize.QueryTypes.SELECT }).then(user => {
     if (user[0]) {
       var response = CF.getStandardResponse(400, "education already exist.");
