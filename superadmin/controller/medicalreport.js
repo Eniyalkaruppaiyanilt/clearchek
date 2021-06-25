@@ -17,7 +17,7 @@ router.use(fileUpload({
 var path = require('path'); var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 
-router.post('/', function (req, res, next) {
+router.post('/', verifytoken,function (req, res, next) {
  
   sequelize.query("select  * from cc_travelinformations where  from_date='"+req.body.from_date+"' and  to_date='"+req.body.to_date+"' and   title='"+req.body.title+"' and  vehicle_no='"+req.body.vehicle_no+"' ",
   { replacements: ['active'], type: sequelize.QueryTypes.SELECT }).then(user => {

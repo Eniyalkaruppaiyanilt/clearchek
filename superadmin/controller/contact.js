@@ -13,7 +13,7 @@ const jwt = require('jsonwebtoken');
 var uuid = require('node-uuid');
 const sequelize = db.sequelize;
 
-router.post('/', function (req, res, next) {
+router.post('/', verifytoken,function (req, res, next) {
   sequelize.query("select  * from cc_contactdetails where mobilenumber='"+req.body.mobilenumber+"' ",
   { replacements: ['active'], type: sequelize.QueryTypes.SELECT }).then(user => {
     if (user[0]) {

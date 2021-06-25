@@ -21,7 +21,8 @@ router.use(fileUpload({
 }));
 var path = require('path'); var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
-router.post('/', function (req, res, next) {
+
+router.post('/',verifytoken, function (req, res, next) {
   sequelize.query("select  * from cc_identificationdetails where identificationtype='"+req.body.identificationtype+"' and  identificationnumber='"+req.body.identificationnumber+"'",
   { replacements: ['active'], type: sequelize.QueryTypes.SELECT }).then(user => {
     if (user[0]) {

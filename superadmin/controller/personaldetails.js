@@ -24,7 +24,7 @@ router.use(fileUpload({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-router.post('/', function (req, res, next) {
+router.post('/',verifytoken, function (req, res, next) {
   sequelize.query("select  * from cc_personaldetails where emailid='"+req.body.emailid+"'",
   { replacements: ['active'], type: sequelize.QueryTypes.SELECT }).then(user => {
     if (user[0]) {
