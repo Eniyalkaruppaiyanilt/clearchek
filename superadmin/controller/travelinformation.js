@@ -18,7 +18,6 @@ var path = require('path'); var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 
 router.post('/', verifytoken,function (req, res, next) {
- 
   sequelize.query("select  * from cc_travelinformations where  from_date='"+req.body.from_date+"' and  to_date='"+req.body.to_date+"' and   title='"+req.body.title+"' and  vehicle_no='"+req.body.vehicle_no+"' ",
   { replacements: ['active'], type: sequelize.QueryTypes.SELECT }).then(user => {
     if (user!=""|| user!=0) {
@@ -50,7 +49,7 @@ router.post('/', verifytoken,function (req, res, next) {
 });
 
 router.delete('/:id',verifytoken,function(req,res,next){ 
-       
+      
     const id = req.params.id;
     travelinformation.destroy({
       where: { travelkey: id }
@@ -114,12 +113,12 @@ router.put('/:id', verifytoken, function (req, res, next) {
                   console.log('successfully deleted local image');
                 }
               });
-              image1.mv('./public/ticketupload/' + ticket_upload);
+              image1.mv('./public/ticketupload/'+ticket_upload);
               reg.ticket_upload = image1.name;
             }
           }
           travelinformation.update(reg, {
-          where: { travelkey: id }
+          where: {travelkey: id }
         })
           .then(data => {
             winston.info('puttravelinformation' + data)
@@ -146,7 +145,7 @@ router.get('/:id', verifytoken, function (req, res, next) {
         var response = CF.getStandardResponse(401, "travelinformation not found");
         return res.status(401).send(response)
       }
-      sequelize.query("select *,to_char(createdon,'DD/MM/YYYY')AS date from  cc_travelinformations where travelkey=" + id + "",
+      sequelize.query("select *,to_char(createdon,'DD/MM/YYYY')AS date from  cc_travelinformations where travelkey="+id+"",
         { replacements: ['active'], type: sequelize.QueryTypes.SELECT })
         .then(data => {
           if (!data) {
@@ -169,7 +168,4 @@ router.get('/:id', verifytoken, function (req, res, next) {
     });
 
 });
-
-
-
 module.exports = router;
