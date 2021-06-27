@@ -6,10 +6,10 @@ module.exports = function(sequelize, DataTypes) {
            primaryKey: true
        },
        from_date :{
-           type: DataTypes.DATE,
+           type: DataTypes.STRING,
        },
        to_date :{
-           type: DataTypes.DATE,
+           type: DataTypes.STRING,
        },
        title :{
            type: DataTypes.STRING,
@@ -18,10 +18,10 @@ module.exports = function(sequelize, DataTypes) {
        type: DataTypes.STRING,
        },
        from_time :{
-           type: DataTypes.TIME,
+           type: DataTypes.STRING,
        },
        to_time :{
-           type: DataTypes.TIME,
+           type: DataTypes.STRING,
        },
        destination_place :{
            type: DataTypes.STRING,
@@ -51,7 +51,7 @@ module.exports = function(sequelize, DataTypes) {
            type: DataTypes.INTEGER,
        },
        expenses :{
-           type: DataTypes.DECIMAL,
+           type: DataTypes.STRING,
        },
        createdby:{
            type: DataTypes.INTEGER, 
