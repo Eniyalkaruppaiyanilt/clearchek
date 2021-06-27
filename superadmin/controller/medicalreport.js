@@ -168,6 +168,7 @@ router.delete('/:id',verifytoken,function(req,res,next){
   
  
 router.get('/show/all/:userid', verifytoken, function (req, res, next) {
+  const id = req.params.userid;
   sequelize.query("select  distinct a.*,to_char(a.createdon,'DD/MM/YYYY')AS date,b.reportcopy,b.reportname from  cc_medicalreports a left outer join cc_medicalreportcopies b on  b.medicalreportid=a.medicalreportkey   where a.createdby='"+id+"'",
     { replacements: ['active'], type: sequelize.QueryTypes.SELECT })
     .then(data => {
