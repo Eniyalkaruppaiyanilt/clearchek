@@ -40,6 +40,7 @@ router.post('/', verifytoken,function (req, res, next) {
     }
   });
 });
+
 router.post('/reportcopy', verifytoken,function (req, res, next) {
   var  jsondata = req.body;
   for(var i=0; i< jsondata.length; i++)
@@ -166,8 +167,8 @@ router.delete('/:id',verifytoken,function(req,res,next){
   });
   
  
-router.get('/', verifytoken, function (req, res, next) {
-  sequelize.query("select  distinct a.*,to_char(a.createdon,'DD/MM/YYYY')AS date,b.reportcopy,b.reportname from  cc_medicalreports a left outer join cc_medicalreportcopies b on  b.medicalreportid=a.medicalreportkey ",
+router.get('/show/all/:userid', verifytoken, function (req, res, next) {
+  sequelize.query("select  distinct a.*,to_char(a.createdon,'DD/MM/YYYY')AS date,b.reportcopy,b.reportname from  cc_medicalreports a left outer join cc_medicalreportcopies b on  b.medicalreportid=a.medicalreportkey   where a.createdby='"+id+"'",
     { replacements: ['active'], type: sequelize.QueryTypes.SELECT })
     .then(data => {
       
