@@ -41,9 +41,13 @@ router.post('/', function (req, res, next) {
             userreg.image = image1.name;
           } 
       userreg.save()
+
       .then(data => {
+        const refreshToken = jwt.sign({ sub: data.registrationkey }, config1.refreshTokenSecret, { expiresIn: config1.refreshTokenLife })
+        const token = jwt.sign({ sub: data.registrationkey }, config1.secret, { expiresIn: config1.tokenLife })
         winston.info('post some data/userregister'+data);
-        var response = CF.getStandardResponse({ response_code:"201",response_message:"user register created successfully.",id:data.registrationkey});
+        var response = CF.getStandardResponse({ response_code:"201",response_message:"user register created successfully.",id:data.registrationkey,  accessToken: token,
+        refreshToken: refreshToken,});
         return res.status(201).send(response)
       }).catch(err => {
         winston.error('error'+err);
