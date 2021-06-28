@@ -43,7 +43,7 @@ router.post('/', function (req, res, next) {
       userreg.save()
       .then(data => {
         winston.info('post some data/userregister'+data);
-        var response = CF.getStandardResponse(201, "user register created successfully.");
+        var response = CF.getStandardResponse({ response_code:"201",response_message:"user register created successfully.",id:data.registrationkey});
         return res.status(201).send(response)
       }).catch(err => {
         winston.error('error'+err);
