@@ -39,7 +39,7 @@ router.post('/', function (req, res, next) {
         var image1 = dept.image;
             image1.mv('./public/images/' + image1.name);
             userreg.image = image1.name;
-          }
+          } 
       userreg.save()
       .then(data => {
         winston.info('post some data/userregister'+data);
