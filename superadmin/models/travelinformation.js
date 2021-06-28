@@ -52,7 +52,13 @@ module.exports = function(sequelize, DataTypes) {
        },
        expenses :{
            type: DataTypes.STRING,
-       },
+       },description :{
+        type: DataTypes.STRING,
+    },sourcestation :{
+        type: DataTypes.STRING,
+    },destinationstation :{
+        type: DataTypes.STRING,
+    },
        createdby:{
            type: DataTypes.INTEGER, 
        }, 

@@ -9,10 +9,10 @@ module.exports = function(sequelize, DataTypes) {
            type: DataTypes.STRING,
        },
        visitdate :{
-           type: DataTypes.DATE,
+           type: DataTypes.STRING,
        },
        visittime :{
-           type: DataTypes.TIME,
+           type: DataTypes.STRING,
        },
        reason :{
                type: DataTypes.STRING,
