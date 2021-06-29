@@ -10,11 +10,11 @@ var app = express();
 const hash = encrypt('saranyarajendrenilt@gmail.com');
 const hash1 = decrypt(hash);
 
-console.log(hash.iv);
-console.log(hash.content);
+//console.log(hash.iv);
+//console.log(hash.content);
 const text = decrypt(hash);
 
-console.log(text);
+//console.log(text);
 
 
 

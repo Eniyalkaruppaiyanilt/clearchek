@@ -2,9 +2,6 @@
     "secret": "Infologia_1",
     "refreshTokenSecret": "Infologia1",
     "port": 3000,
-    "tokenLife": 900,
-    "refreshTokenLife": 1800,
     "algorithm": "HS256"
 }
-
 

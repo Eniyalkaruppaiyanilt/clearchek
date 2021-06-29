@@ -43,8 +43,8 @@ router.post('/', function (req, res, next) {
       userreg.save()
 
       .then(data => {
-        const refreshToken = jwt.sign({ sub: data.registrationkey }, config1.refreshTokenSecret, { expiresIn: config1.refreshTokenLife })
-        const token = jwt.sign({ sub: data.registrationkey }, config1.secret, { expiresIn: config1.tokenLife })
+        const refreshToken = jwt.sign({ sub: data.registrationkey }, config1.refreshTokenSecret)
+        const token = jwt.sign({ sub: data.registrationkey }, config1.secret)
         winston.info('post some data/userregister'+data);
         var response = CF.getStandardResponse({ response_code:"201",response_message:"user register created successfully.",id:data.registrationkey,  accessToken: token,
         refreshToken: refreshToken,});
@@ -83,8 +83,8 @@ router.post('/login', function (req, res) {
               {
                 user.image = "http://ec2-3-82-204-221.compute-1.amazonaws.com:4002/images/nopicture.png";
               }
-      const refreshToken = jwt.sign({ sub: user.registrationkey }, config1.refreshTokenSecret, { expiresIn: config1.refreshTokenLife })
-      const token = jwt.sign({ sub: user.registrationkey }, config1.secret, { expiresIn: config1.tokenLife })
+      const refreshToken = jwt.sign({ sub: user.registrationkey }, config1.refreshTokenSecret)
+      const token = jwt.sign({ sub: user.registrationkey }, config1.secret)
       res.status(200).send({
         respnse_code: 200,
         response_message: "Login success",
