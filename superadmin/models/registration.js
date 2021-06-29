@@ -25,6 +25,25 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull:false
         },
+        dob: {
+            type: DataTypes.STRING,
+            allowNull:false
+        },
+        maritalstatus: {
+            type: DataTypes.INTEGER,
+            allowNull:false
+        },
+        gender: {
+            type: DataTypes.INTEGER,
+            allowNull:false
+        },bloodgroup:{
+            type: DataTypes.INTEGER
+        }
+        , height: {
+            type: DataTypes.STRING
+        }, weight: {
+            type: DataTypes.STRING
+        },
         agree :{
             type: DataTypes.INTEGER,
             allowNull:false

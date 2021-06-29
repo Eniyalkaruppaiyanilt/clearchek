@@ -26,7 +26,7 @@ router.get('/:id', verifytoken, function (req, res, next) {
         where: {
             registrationkey: id
         },
-        attributes: ['firstname', 'lastname', 'emailid', 'phonenumber','image','role'], //object
+        attributes: ['firstname', 'lastname', 'emailid', 'phonenumber','image','role','dob','maritalstatus','gender','bloodgroup','height','weight'], //object
     }).then(data => {
         const img = data[0].image;
         if (img) {
