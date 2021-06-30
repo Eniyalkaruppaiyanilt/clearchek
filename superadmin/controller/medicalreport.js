@@ -169,7 +169,19 @@ router.delete('/:id',verifytoken,function(req,res,next){
  
 router.get('/show/all/:userid', verifytoken, function (req, res, next) {
   const id = req.params.userid;
-  sequelize.query("select  distinct a.*,to_char(a.createdon,'DD/MM/YYYY')AS date,b.reportcopy,b.reportname from  cc_medicalreports a left outer join cc_medicalreportcopies b on  b.medicalreportid=a.medicalreportkey   where a.createdby='"+id+"'",
+  sequelize.query("select  distinct *,to_char(createdon,'DD/MM/YYYY')AS date from  cc_medicalreports   where a.createdby='"+id+"'",
+    { replacements: ['active'], type: sequelize.QueryTypes.SELECT })
+    .then(data => {
+      
+      res.status(200).send({
+        response_code: "200", response_message: "success.", data
+      });
+      winston.info('getmedicalreport')
+    })
+})
+router.get('/showall/topfive/:userid', verifytoken, function (req, res, next) {
+  const id = req.params.userid;
+  sequelize.query("select  distinct *,to_char(createdon,'DD/MM/YYYY')AS date from  cc_medicalreports where createdby='"+id+"' order by createdon asc limit 5",
     { replacements: ['active'], type: sequelize.QueryTypes.SELECT })
     .then(data => {
       
@@ -191,7 +203,7 @@ router.get('/:id', verifytoken, function (req, res, next) {
         var response = CF.getStandardResponse(401, "medicalreport not found");
         return res.status(401).send(response)
       }
-      sequelize.query("select  a.*,to_char(a.createdon,'DD/MM/YYYY')AS date,b.reportcopy,b.reportname from  cc_medicalreports a left outer join cc_medicalreportcopies b on  b.medicalreportid=a.medicalreportkey where medicalreportkey="+id+"",
+      sequelize.query("select distinct  *,to_char(createdon,'DD/MM/YYYY')AS date from  cc_medicalreports where medicalreportkey="+id+"",
         { replacements: ['active'], type: sequelize.QueryTypes.SELECT })
         .then(data => {
           if (!data) {

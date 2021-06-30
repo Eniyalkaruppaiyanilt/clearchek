@@ -18,11 +18,7 @@ router.put('/:id', verifytoken, function (req, res, next) {
         var response = CF.getStandardResponse(401, "User not found");
         return res.status(401).send(response)
       }
-      var passwordIsValid = bcrypt.compareSync(
-        req.body.currentpassword,
-        data.password
-      );
-      if (!passwordIsValid) {
+      if (req.body.currentpassword===data.password) {
         var response = CF.getStandardResponse(401, "Invalid Current password");
         return res.status(401).send(response)
       }

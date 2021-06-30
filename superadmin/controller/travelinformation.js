@@ -88,6 +88,18 @@ router.get('/show/all/:userid', verifytoken, function (req, res, next) {
     })
 })
 
+router.get('/showall/tipfive/:userid', verifytoken, function (req, res, next) {
+  const id = req.params.userid;
+  sequelize.query("select *,to_char(createdon,'DD/MM/YYYY')AS date from  cc_travelinformations  where createdby='"+id+"' order by createdon asc limit 5 ",
+    { replacements: ['active'], type: sequelize.QueryTypes.SELECT })
+    .then(data => {
+      
+      res.status(200).send({
+        response_code: "200", response_message: "success.", data
+      });
+      winston.info('gettravelinformation')
+    })
+})
 router.put('/:id', verifytoken, function (req, res, next) {
   const id = req.params.id;
   const reg = req.body;
