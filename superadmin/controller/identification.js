@@ -148,8 +148,9 @@ router.delete('/:id',verifytoken,function(req,res,next){
 
 
 
-router.get('/', verifytoken, function (req, res, next) {
-  sequelize.query("select *,to_char(createdon,'DD/MM/YYYY')AS date from  cc_identificationdetails  ",
+router.get('/show/all/:userid', verifytoken, function (req, res, next) {
+  const id = req.params.userid;
+  sequelize.query("select *,to_char(createdon,'DD/MM/YYYY')AS date from  cc_identificationdetails  where createdby='"+id+"' ",
     { replacements: ['active'], type: sequelize.QueryTypes.SELECT })
     .then(data => {
       var totalrows = data.length;
