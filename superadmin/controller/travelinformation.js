@@ -88,7 +88,7 @@ router.get('/show/all/:userid', verifytoken, function (req, res, next) {
     })
 })
 
-router.get('/showall/tipfive/:userid', verifytoken, function (req, res, next) {
+router.get('/showall/topfive/:userid', verifytoken, function (req, res, next) {
   const id = req.params.userid;
   sequelize.query("select *,to_char(createdon,'DD/MM/YYYY')AS date from  cc_travelinformations  where createdby='"+id+"' order by createdon asc limit 5 ",
     { replacements: ['active'], type: sequelize.QueryTypes.SELECT })
