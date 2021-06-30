@@ -169,7 +169,7 @@ router.delete('/:id',verifytoken,function(req,res,next){
  
 router.get('/show/all/:userid', verifytoken, function (req, res, next) {
   const id = req.params.userid;
-  sequelize.query("select  distinct *,to_char(createdon,'DD/MM/YYYY')AS date from  cc_medicalreports   where a.createdby='"+id+"'",
+  sequelize.query("select  distinct *,to_char(createdon,'DD/MM/YYYY')AS date from  cc_medicalreports   where createdby='"+id+"'",
     { replacements: ['active'], type: sequelize.QueryTypes.SELECT })
     .then(data => {
       
