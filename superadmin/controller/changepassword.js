@@ -18,13 +18,13 @@ router.put('/:id', verifytoken, function (req, res, next) {
         var response = CF.getStandardResponse(401, "User not found");
         return res.status(401).send(response)
       }
-      if (req.body.currentpassword===data.password) {
+      if (req.body.currentpassword!=data.password) {
         var response = CF.getStandardResponse(401, "Invalid Current password");
         return res.status(401).send(response)
       }
       else {
        
-          registration.update({password: testpassword }, {
+          registration.update({password:req.body.newpassword }, {
             where: { registrationkey: id }
           })
             .then(data => {
