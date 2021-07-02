@@ -24,4 +24,5 @@ db.travelinformation = require('../superadmin/models/travelinformation')(sequeli
 db.medicalreport = require('../superadmin/models/medicalreport')(sequelize, Sequelize);
 db.education = require('../superadmin/models/education')(sequelize, Sequelize);
 db.reportcopy=require('../superadmin/models/reportcopy')(sequelize, Sequelize);
+db.scanners=require('../superadmin/models/scanner')(sequelize, Sequelize);
 module.exports = db;

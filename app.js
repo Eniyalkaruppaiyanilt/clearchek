@@ -22,6 +22,7 @@ const occupation = require('./superadmin/controller/occupation');
 const travelinformation = require('./superadmin/controller/travelinformation');
 const medicalreport= require('./superadmin/controller/medicalreport');
 const education= require('./superadmin/controller/education');
+const scanner= require('./superadmin/controller/scanner');
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 
@@ -45,6 +46,7 @@ app.use('/identification', identification);
 app.use('/travelinformation', travelinformation);
 app.use('/medicalreport', medicalreport);
 app.use('/education', education);
+app.use('/scanner', scanner);
 app.use(morgan('combined', { stream: winston.stream }));
 app.use(function (req, res, next) {
     next(createError(404));
